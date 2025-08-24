@@ -1,5 +1,13 @@
 import os
 import sys
+from pathlib import Path
+
+# Add the project root to Python path when running this file directly
+if __name__ == "__main__":
+    # Get the project root directory (two levels up from this file)
+    project_root = Path(__file__).parent.parent.parent
+    sys.path.append(str(project_root))
+
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
@@ -7,6 +15,8 @@ import pandas as pd
 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
 
 
 @dataclass
@@ -62,6 +72,9 @@ if __name__ == "__main__":
     print(f"Data ingestion completed successfully!")
     print(f"Train data: {train_data}")
     print(f"Test data: {test_data}")
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data, test_data)
 
 
 
